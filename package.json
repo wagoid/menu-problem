@@ -1,0 +1,34 @@
+{
+  "name": "menu-problem",
+  "version": "0.1.0",
+  "description": "A simple module that solves the menu problem",
+  "main": "src/menuSolver.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha",
+    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/.bin/coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wagoid/menu-problem.git"
+  },
+  "keywords": [
+    "dynamic",
+    "programing"
+  ],
+  "author": {
+    "name": "Wagner Resende Santos",
+    "email": "w.rsantos@outlook.com",
+    "url": "https://github.com/wagoid/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wagoid/menu-problem/issues"
+  },
+  "dependencies": {
+    "busca-cep": "^0.3.0"
+  },
+  "homepage": "https://github.com/wagoid/menu-problem#readme"
+}

@@ -1,0 +1,1 @@
+var menuSolver = require('../src/menuSolver.js');
