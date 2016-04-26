@@ -11,7 +11,6 @@ solveMenuProblem(fileName);
 function solveMenuProblem(fileName) {
   return getProblemFromFileAsync(path.join(__dirname, fileName))
     .then(problemInfo => {
-      console.log(problemInfo);
       console.log(JSON.stringify(problemInfo, null, 4));
     })
     .catch(e => {
