@@ -1,23 +1,28 @@
-var fs = require('fs');
-var path = require('path');
-var readLine = require('readline');
+'use strict';
 
-solveMenuProblem();
+const fs = require('fs');
+const path = require('path');
+const readLine = require('readline');
 
-function solveMenuProblem() {
-  getProblemFromFileAsync(path.join(__dirname, 'problems.txt'))
+const fileName = process.argv[2] || 'problems.txt';
+
+solveMenuProblem(fileName);
+
+function solveMenuProblem(fileName) {
+  return getProblemFromFileAsync(path.join(__dirname, fileName))
     .then(problemInfo => {
+      console.log(problemInfo);
       console.log(JSON.stringify(problemInfo, null, 4));
     })
     .catch(e => {
-      console.log(e);
+      console.log(e.message);
     });
 }
 
 function getProblemFromFileAsync(fileName) {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(fileName)) {
-      return reject(`The file ${fileName} was not found.`);
+      return reject(new Error(`The file '${fileName}' was not found.`));
     }
     var problemInfo = [];
     var lineReader = readLine.createInterface({
@@ -37,7 +42,7 @@ function getProblemFromFileAsync(fileName) {
         var budget = +splitted[2];
         
         if (isNaN(days) || isNaN(platesNumber) || isNaN(budget)) {
-          return reject(`Unrecognized line format (${line}).`);
+          return reject(new Error(`Unrecognized line format (${line}).`));
         }
         
         if (days === 0 && platesNumber === 0 && budget === 0) {
@@ -58,16 +63,16 @@ function getProblemFromFileAsync(fileName) {
         var plateValue = +splitted[1];
         
         if (isNaN(plateCost) || isNaN(plateValue)) {
-          return reject(`Unrecognized line format (${line}).`);
+          return reject(new Error(`Unrecognized line format (${line}).`));
         }
         if (readPlates > platesNumber) { 
-          return reject(`There were more plates than the specified in the previous line (${lastProblem.days} ${lastProblem.platesNumber} ${lastProblem.budget}).`);
+          return reject(new Error(`There were more plates than the specified in the previous line (${lastProblem.days} ${lastProblem.platesNumber} ${lastProblem.budget}).`));
         }
         
         var plate = { cost: +splitted[0], value: +splitted[1] };
         lastProblem.plates.push(plate);
       } else {
-        return reject(`Unrecognized line format (${line}).`);
+        return reject(new Error(`Unrecognized line format (${line}).`));
       }
     });
 

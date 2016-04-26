@@ -2,12 +2,13 @@
   "name": "menu-problem",
   "version": "0.1.0",
   "description": "A simple module that solves the menu problem",
+  "homepage": "https://github.com/wagoid/menu-problem#readme",
   "main": "src/menuSolver.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha",
+    "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/.bin/coveralls"
   },
   "repository": {
@@ -27,8 +28,13 @@
   "bugs": {
     "url": "https://github.com/wagoid/menu-problem/issues"
   },
-  "dependencies": {
-    "busca-cep": "^0.3.0"
-  },
-  "homepage": "https://github.com/wagoid/menu-problem#readme"
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "mocha-sinon": "^1.1.5",
+    "sinon": "^1.17.3"
+  }
 }
