@@ -4,21 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const readLine = require('readline');
 
-const fileName = process.argv[2] || 'problems.txt';
-
-solveMenuProblem(fileName);
-
-function solveMenuProblem(fileName) {
-  return getProblemFromFileAsync(path.join(__dirname, fileName))
-    .then(problemInfo => {
-      console.log(JSON.stringify(problemInfo, null, 4));
-    })
-    .catch(e => {
-      console.log(e.message);
-    });
+function getMenuProblems(fileName) {
+  fileName = fileName || 'problems.txt';
+  return getProblemFromFile(path.join(__dirname, fileName));
 }
 
-function getProblemFromFileAsync(fileName) {
+function getProblemFromFile(fileName) {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(fileName)) {
       return reject(new Error(`The file '${fileName}' was not found.`));
@@ -81,4 +72,4 @@ function getProblemFromFileAsync(fileName) {
   });
 }
 
-module.exports = solveMenuProblem;
+module.exports = getMenuProblems;
