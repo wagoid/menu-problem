@@ -1,7 +1,8 @@
 'use strict';
 
 const chai = require('chai');
-const problemBuilder = require('../src/problemBuilder.js');
+const ProblemBuilder = require('../src/problemBuilder.js');
+const problemBuilder = new ProblemBuilder();
 const path = require('path');
 const fs = require('fs');
 const chaiAsPromised = require('chai-as-promised');
@@ -21,39 +22,39 @@ describe('Menu solver tests', () => {
   
   it('Should throw error if the file does not exist', () => {
     var expectedMessage = `The file '${path.join(__dirname, '../src/', 'something wrong.txt')}' was not found.`;
-    return expect(problemBuilder('something wrong.txt')).to.be.rejectedWith(expectedMessage);
+    return expect(problemBuilder.getMenuProblems('something wrong.txt')).to.be.rejectedWith(expectedMessage);
   });
   
   it('Should throw error if one line has something different of 2 and 3 items', () => {
     fs.writeFileSync(PROBLEMS_TESTS_FILE_PATH, '1 1 3\n1\n3 5', 'utf-8');
     
     var expectedMessage = 'Unrecognized line format (1).';
-    return expect(problemBuilder(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
+    return expect(problemBuilder.getMenuProblems(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
   });
   
   it('Should throw error if any 3 items line have non number values', () => {
     fs.writeFileSync(PROBLEMS_TESTS_FILE_PATH, '1 2 3wrong', 'utf-8');
     
     var expectedMessage = 'Unrecognized line format (1 2 3wrong).';
-    return expect(problemBuilder(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
+    return expect(problemBuilder.getMenuProblems(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
   });
   
   it('Should throw error if any 2 items line have non number values', () => {
     fs.writeFileSync(PROBLEMS_TESTS_FILE_PATH, '1 2 3\n1 2wrong', 'utf-8');
     
     var expectedMessage = 'Unrecognized line format (1 2wrong).';
-    return expect(problemBuilder(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
+    return expect(problemBuilder.getMenuProblems(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
   });
   
   it('Should throw error if there are more plates than specified', () => {
     fs.writeFileSync(PROBLEMS_TESTS_FILE_PATH, '1 1 3\n1 2\n3 5', 'utf-8');
     
     var expectedMessage = 'There were more plates than the specified in the previous line (1 1 3).';
-    return expect(problemBuilder(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
+    return expect(problemBuilder.getMenuProblems(PROBLEMS_TESTS_FILE_NAME)).to.be.rejectedWith(expectedMessage);
   });
   
   it('Should return the structured problems from the problem file', () => {
-    return expect(problemBuilder()).to.eventually.eql([
+    return expect(problemBuilder.getMenuProblems()).to.eventually.eql([
       {
         days: 2,
         platesNumber: 1,
