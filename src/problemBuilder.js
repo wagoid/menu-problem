@@ -25,7 +25,7 @@ class ProblemBuilder {
 
       var lineReader = this._createLineReader(reject, fileName);
 
-      lineReader.on('line', (line) => {
+      lineReader.on('line', line => {
         var splitted = line.split(' ');
 
         if (this._isProblemInformationLine(splitted)) {
@@ -82,9 +82,9 @@ class ProblemBuilder {
     }
   }
 
-  _validateLineValues(reject, line) {
-    for (var i = 2; i < arguments.length; i++) {
-      if (isNaN(arguments[i])) {
+  _validateLineValues(reject, line, ...valuestToCheck) {
+    for (var value of valuestToCheck) {
+      if (isNaN(value)) {
         reject(new Error(`Unrecognized line format (${line}).`));
       }
     }

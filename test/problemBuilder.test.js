@@ -13,7 +13,7 @@ const PROBLEMS_TESTS_FILE_PATH = path.join(__dirname, '../src/', PROBLEMS_TESTS_
 
 chai.use(chaiAsPromised);
 
-describe('Menu solver tests', () => {
+describe('ProblemBuilder', () => {
   after(() => {
     if (fs.existsSync(PROBLEMS_TESTS_FILE_PATH)) {
       fs.unlinkSync(PROBLEMS_TESTS_FILE_PATH);
