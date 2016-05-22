@@ -45,6 +45,7 @@ class GreedyMenuSolver {
         for (var usedIndex of usedIndexes) {
           if (usedIndex !== bestPlateIndex) {
             plates[usedIndex].currentValue = plates[usedIndex].value;
+            plates[usedIndex].fitness = this._getPlateFitness(plates[usedIndex]);
           }
         }
       }

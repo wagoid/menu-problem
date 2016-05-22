@@ -49,4 +49,27 @@ describe('greedyMenuSolver', () => {
     
     expect(greedyMenuSolver.solve(problem)).to.eql([{cost: 2, value: 5}, {cost: 2, value: 3}, {cost: 2, value: 5}]);
   });
+  
+  it('Should preserve the plates used in the menu for different number of days', () => {
+    var problem = { days: 3, platesNumber: 5, budget: 20, 
+      plates: [ 
+        { cost: 2, value: 5 }, { cost: 18, value: 6 },
+        { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
+      ]
+    };
+    
+    var solution = greedyMenuSolver.solve(problem);
+    var allCost2andValue3or5 = solution.every(plate => (plate.value === 5 || plate.value === 3) && plate.cost === 2);
+    
+    problem = { days: 1000, platesNumber: 12, budget: 50000, 
+      plates: [ 
+        { cost: 2, value: 5 }, { cost: 18, value: 6 },
+        { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
+      ]
+    };
+    
+    solution = greedyMenuSolver.solve(problem);
+    allCost2andValue3or5 = solution.every(plate => (plate.value === 5 || plate.value === 3) && plate.cost === 2);
+    expect(allCost2andValue3or5).to.be.true;
+  });
 });
