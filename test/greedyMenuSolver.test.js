@@ -38,7 +38,7 @@ describe('greedyMenuSolver', () => {
   it('Should get the correct answer for a problem', () => {
     var problem = baseProblem();
     
-    expect(greedyMenuSolver.solve(problem)).to.eql([{cost: 3, value: 5}]);
+    expect(greedyMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 3, value: 5}]);
     
     problem = { days: 3, platesNumber: 5, budget: 20, 
       plates: [ 
@@ -47,7 +47,7 @@ describe('greedyMenuSolver', () => {
       ]
     };
     
-    expect(greedyMenuSolver.solve(problem)).to.eql([{cost: 2, value: 5}, {cost: 2, value: 3}, {cost: 2, value: 5}]);
+    expect(greedyMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 2, value: 5}, {plateNumber: 5, cost: 2, value: 3}, {plateNumber: 1, cost: 2, value: 5}]);
   });
   
   it('Should preserve the plates used in the menu for different number of days', () => {

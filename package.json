@@ -5,6 +5,7 @@
   "homepage": "https://github.com/wagoid/menu-problem#readme",
   "main": "src/menuSolver.js",
   "directories": {
+    "src": "src",
     "test": "test"
   },
   "scripts": {
@@ -17,7 +18,9 @@
   },
   "keywords": [
     "dynamic",
-    "programing"
+    "programing",
+    "menu",
+    "restaurant"
   ],
   "author": {
     "name": "Wagner Resende Santos",

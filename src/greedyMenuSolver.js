@@ -1,6 +1,21 @@
 'use strict';
 
 class GreedyMenuSolver {
+  
+  /**
+   * Gets the best option of plates to serve in a given number of days
+   * 
+   * @param {array} problem - the structured information of the problem to solve
+   * @returns {array} - a collection of the best option of plates to serve
+   * @example example result: 
+   * [
+   *   {
+   *     plateNumber: 1,
+   *     cost: 3,
+   *     value: 5
+   *   }
+   * ]
+   */
   solve(problem) {
     var usedPlates;
     if (problem && problem.plates && problem.plates.length) {
@@ -38,6 +53,7 @@ class GreedyMenuSolver {
         usedIndexes.push(bestPlateIndex);
         usedCost += bestPlate.cost;
         usedPlates.push({
+          plateNumber: bestPlateIndex + 1,
           cost: bestPlate.cost,
           value: bestPlate.value
         });
