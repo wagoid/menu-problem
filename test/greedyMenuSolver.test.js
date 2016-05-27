@@ -10,7 +10,7 @@ var baseProblem = function() {
   return {
     days: 2,
     platesNumber: 1,
-    budget: 5,
+    budget: 6,
     plates: [
       {
         cost: 3,
@@ -38,7 +38,7 @@ describe('greedyMenuSolver', () => {
   it('Should get the correct answer for a problem', () => {
     var problem = baseProblem();
     
-    expect(greedyMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 3, value: 5}]);
+    expect(greedyMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 3, value: 5}, {plateNumber: 1, cost: 3, value: 5}]);
     
     problem = { days: 3, platesNumber: 5, budget: 20, 
       plates: [ 
@@ -46,6 +46,8 @@ describe('greedyMenuSolver', () => {
         { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
       ]
     };
+    
+    
     
     expect(greedyMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 2, value: 5}, {plateNumber: 5, cost: 2, value: 3}, {plateNumber: 1, cost: 2, value: 5}]);
   });
@@ -60,6 +62,7 @@ describe('greedyMenuSolver', () => {
     
     var solution = greedyMenuSolver.solve(problem);
     var allCost2andValue3or5 = solution.every(plate => (plate.value === 5 || plate.value === 3) && plate.cost === 2);
+    expect(allCost2andValue3or5).to.be.true;
     
     problem = { days: 1000, platesNumber: 12, budget: 50000, 
       plates: [ 

@@ -4,10 +4,12 @@
 'use strict';
 
 const ProblemBuilder = require('./problemBuilder.js');
-const problemBuilder = new ProblemBuilder();
 const GreedyMenuSolver = require('./greedyMenuSolver.js');
-const greedyMenuSolver = new GreedyMenuSolver();
+const BacktrackingMenuSolver = require('./backtrackingMenuSolver.js');
 
+const problemBuilder = new ProblemBuilder();
+const greedyMenuSolver = new GreedyMenuSolver();
+const backtrackingMenuSolver = new BacktrackingMenuSolver();
 const fileName = process.argv[3] || './problems.txt';
 
 function prettyPrintSolution(solution) {
@@ -15,12 +17,27 @@ function prettyPrintSolution(solution) {
     console.log(solution.reduce((valueSum, currentPlate) => valueSum + currentPlate.value, 0));
     var indexes = solution.map(plate => plate.plateNumber);
     console.log(indexes.join(' '));
+  } else { // If there is no solution, just prints 0
+    console.log(0);
   }
 }
 
 function useGreedyMenuSolver(problemInfo) {
   problemInfo.forEach(problem => {
     prettyPrintSolution(greedyMenuSolver.solve(problem));
+  });
+}
+
+function useBacktrackingForceMenuSolver(problemInfo) {
+  problemInfo.forEach(problem => {
+    
+    var solution = backtrackingMenuSolver.solve(problem);
+    if (solution) {
+      console.log(solution.value);
+      console.log(solution.platesSequence);
+    } else {
+      console.log(0);
+    }
   });
 }
 
@@ -34,7 +51,12 @@ switch (process.argv[2]) {
       .then(useGreedyMenuSolver)
       .catch(logProblemBuilderError);
     break;
+  case 'backtracking':
+    problemBuilder.getMenuProblems(fileName)
+      .then(useBacktrackingForceMenuSolver)
+      .catch(logProblemBuilderError);
+    break;
   default:
-    console.log('Please provide which of the available solution you want to use as the first argument to the script.\nAvailable solutions are "greedy", "dynamic" and "brute"');
+    console.log('Please provide which of the available solution you want to use as the first argument to the script.\nAvailable solutions are "greedy", "dynamic" and "backtracking"');
     break;
 }
