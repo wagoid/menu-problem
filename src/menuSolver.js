@@ -6,10 +6,12 @@
 const ProblemBuilder = require('./problemBuilder.js');
 const GreedyMenuSolver = require('./greedyMenuSolver.js');
 const BacktrackingMenuSolver = require('./backtrackingMenuSolver.js');
+const DynamicMenuSolver = require('./dynamicMenuSolver.js');
 
 const problemBuilder = new ProblemBuilder();
 const greedyMenuSolver = new GreedyMenuSolver();
 const backtrackingMenuSolver = new BacktrackingMenuSolver();
+const dynamicMenuSolver = new DynamicMenuSolver();
 const fileName = process.argv[3] || './problems.txt';
 
 function prettyPrintSolution(solution) {
@@ -25,6 +27,12 @@ function prettyPrintSolution(solution) {
 function useGreedyMenuSolver(problemInfo) {
   problemInfo.forEach(problem => {
     prettyPrintSolution(greedyMenuSolver.solve(problem));
+  });
+}
+
+function useDynamicMenuSolver(problemInfo) {
+  problemInfo.forEach(problem => {
+    prettyPrintSolution(dynamicMenuSolver.solve(problem));
   });
 }
 
@@ -54,6 +62,11 @@ switch (process.argv[2]) {
   case 'backtracking':
     problemBuilder.getMenuProblems(fileName)
       .then(useBacktrackingForceMenuSolver)
+      .catch(logProblemBuilderError);
+    break;
+  case 'dynamic':
+    problemBuilder.getMenuProblems(fileName)
+      .then(useDynamicMenuSolver)
       .catch(logProblemBuilderError);
     break;
   default:
