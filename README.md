@@ -24,4 +24,7 @@ Como os pratos vão perdendo o valor com o uso, temos que sempre atualizar o fit
 
 2. Seu Algoritmo Guloso dá a solução ótima? Por quê?
 
-O algoritmo guloso implementado não dá solução ótima. Como ele apenas analisa soluções ótimas locais para buscar a solução, não há garantia de que a solução ótima global será encontrada pelo algoritmo. Ele com certeza irá encontrar a solução que apresenta maior lucro, mas não necessariamente encontrará a solução com menor custo nos casos em que há mais de uma solução com mesmo lucro e custos diferentes.
+
+O algoritmo guloso implementado não dá solução ótima. Como ele apenas analisa soluções ótimas locais para buscar a solução, não há garantia de que a solução ótima global será encontrada pelo algoritmo. Ele com certeza irá encontrar a solução que apresenta maior lucro, mas não necessariamente encontrará a solução com menor custo.
+
+3. Como esse problema pode ser modelado para o paradigma de Programação Dinâmica?
