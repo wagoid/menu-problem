@@ -20,7 +20,9 @@ var baseProblem = function() {
   };
 };
 
-describe('backtrackingMenuSolver', () => {
+describe('backtrackingMenuSolver', function() {
+  this.timeout(5000);
+  
   it('Should return an empty array if there is no plate in the menu', () => {
     var problem = baseProblem();
     problem.plates = [];

@@ -26,12 +26,46 @@ class BacktrackingMenuSolver {
     return bestSubSet;
   }
   
+  _buildSubSets(days, budget, subSets, plates, subSetIndex) {
+    for (var i in plates) {
+      var newSubSetIndex = subSetIndex? subSetIndex + i.toString() + ' ' : i.toString() + ' ';
+      
+      var addedSubSet = this._callAddSubSet(subSets, subSets[subSetIndex], plates[i], newSubSetIndex, budget, days);
+      if (addedSubSet) {
+        this._buildSubSets(days, budget, subSets, plates, newSubSetIndex);
+      }
+    }
+  }
+  
   _callAddSubSet(subSets, currentSubSet, newItem, newSubSetIndex, budget, days) {
     var newItemValue = this._getNewItemValue(currentSubSet, newItem, newSubSetIndex);
     var newItemCost = currentSubSet? currentSubSet.cost + newItem.cost : newItem.cost;
     var newPlatesNumber = currentSubSet? currentSubSet.platesNumber + 1 : 1;
     //If the recently inserted item is better then tha previous one, the best item will be replaced
     return this._addSubSet(subSets, newSubSetIndex, newItemCost, newItemValue, newPlatesNumber, budget, days);
+  }
+  
+  _getNewItemValue(currentSubSet, newItem, newSubSetIndex) {
+    var newValue = currentSubSet? currentSubSet.value : 0;
+    // Does not consider the last value because the index always ends with a blank space
+    var indexes = newSubSetIndex.split(' ').slice(0, -1);
+    var lastIndex = +indexes.slice(-1).shift();
+    var previousIndex = +indexes.slice(-2, -1).shift();
+    var indexBeforePrevious = +indexes.slice(-3, -2).shift();
+    var valueAddition;
+    var plateUsedThreeConsecutiveTimes = indexBeforePrevious === lastIndex && previousIndex === lastIndex;
+    var plateUsedTwoConsecutiveTimes = previousIndex === lastIndex;
+    
+    if (plateUsedThreeConsecutiveTimes) {
+      valueAddition = 0;
+    } else if (plateUsedTwoConsecutiveTimes) {
+      valueAddition = newItem.value / 2;
+    } else {
+      valueAddition = newItem.value;
+    }
+    newValue += valueAddition;
+    
+    return newValue;
   }
   
   _addSubSet(subSets, subSetIndex, costSum, valueSum, platesNumber, budget, days) {
@@ -50,27 +84,29 @@ class BacktrackingMenuSolver {
     return subSetToAdd;
   }
   
-  _getNewItemValue(currentSubSet, newItem, newSubSetIndex) {
-    var newValue = currentSubSet? currentSubSet.value : 0;
-    // Does not consider the last value because the index always ends with a blank space
-    var indexes = newSubSetIndex.split(' ').slice(0, -1);
-    var lastIndex = +indexes.slice(-1).shift();
-    var previousIndex = +indexes.slice(-2, -1).shift();
-    var indexBeforePrevious = +indexes.slice(-3, -2).shift();
-    var valueAddition;
-    var usedThreeConsecutiveTimes = indexBeforePrevious === lastIndex && previousIndex === lastIndex;
-    var usedTwoConsecutiveTimes = previousIndex === lastIndex;
-    
-    if (usedThreeConsecutiveTimes) {
-      valueAddition = 0;
-    } else if (usedTwoConsecutiveTimes) {
-      valueAddition = newItem.value / 2;
-    } else {
-      valueAddition = newItem.value;
+  _searchForBestItem(subSets) {
+    //Initialize the best item
+    var bestSubSet = {
+      subSetIndex: '-1',
+      platesNumber: -1,
+      value: -1
+    };
+    for (var subSetIndex of Object.keys(subSets)) {
+      this._checkBestItem(bestSubSet, subSets[subSetIndex]);
     }
-    newValue += valueAddition;
     
-    return newValue;
+    return bestSubSet; 
+  }
+  
+  _checkBestItem(bestItem, newItem) {
+    var hasGreaterValue = newItem.value > bestItem.value;
+    var hasSameValueAndLowerCost = newItem.value === bestItem.value && (!bestItem.cost || newItem.cost <= bestItem.cost);
+    if (hasGreaterValue || hasSameValueAndLowerCost) {
+      bestItem.subSetIndex = newItem.subSetIndex;
+      bestItem.platesNumber = newItem.platesNumber;
+      bestItem.cost = newItem.cost;
+      bestItem.value = newItem.value;
+    }
   }
   
   _formatBestSubSet(bestSubSet) {
@@ -86,42 +122,6 @@ class BacktrackingMenuSolver {
       platesSequence,
       value: bestSubSet.value
     };
-  }
-  
-  _buildSubSets(days, budget, subSets, plates, subSetIndex) {
-    for (var i in plates) {
-      var newSubSetIndex = subSetIndex? subSetIndex + i.toString() + ' ' : i.toString() + ' ';
-      
-      var addedSubSet = this._callAddSubSet(subSets, subSets[subSetIndex], plates[i], newSubSetIndex, budget, days);
-      if (addedSubSet) {
-        this._buildSubSets(days, budget, subSets, plates, newSubSetIndex);
-      }
-    }
-  }
-  
-  _checkBestItem(bestItem, newItem) {
-    var hasGreaterValue = newItem.value > bestItem.value;
-    var hasSameValueAndLowerCost = newItem.value === bestItem.value && (!bestItem.cost || newItem.cost <= bestItem.cost);
-    if (hasGreaterValue || hasSameValueAndLowerCost) {
-      bestItem.subSetIndex = newItem.subSetIndex;
-      bestItem.platesNumber = newItem.platesNumber;
-      bestItem.cost = newItem.cost;
-      bestItem.value = newItem.value;
-    }
-  }
-  
-  _searchForBestItem(subSets) {
-    //Initialize the best item
-    var bestSubSet = {
-      subSetIndex: '-1',
-      platesNumber: -1,
-      value: -1
-    };
-    for (var subSetIndex of Object.keys(subSets)) {
-      this._checkBestItem(bestSubSet, subSets[subSetIndex]);
-    }
-    
-    return bestSubSet; 
   }
 }
 
