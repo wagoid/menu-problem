@@ -30,8 +30,9 @@ class GreedyMenuSolver {
   _solve({ days, platesNumber, budget, plates }) {
     var daysCounter = days;
     var usedPlates = [];
-    var usedIndexes = [];
+    var usedIndexes = {};
     var usedCost = 0;
+    var times = 0;
 
     this._addFitnessAndCurrentValueToPlates(plates);
 
@@ -52,7 +53,7 @@ class GreedyMenuSolver {
       if (bestPlateIndex !== null) {
         bestPlate.currentValue = bestPlate.currentValue == bestPlate.value? bestPlate.currentValue / 2 : 0;
         bestPlate.fitness = this._getPlateFitness(bestPlate);
-        usedIndexes.push(bestPlateIndex);
+        usedIndexes[bestPlateIndex] = bestPlateIndex;
         usedCost += bestPlate.cost;
         usedPlates.push({
           plateNumber: bestPlateIndex + 1,
@@ -60,12 +61,7 @@ class GreedyMenuSolver {
           value: bestPlate.value
         });
 
-        for (var usedIndex of usedIndexes) {
-          if (usedIndex !== bestPlateIndex) {
-            plates[usedIndex].currentValue = plates[usedIndex].value;
-            plates[usedIndex].fitness = this._getPlateFitness(plates[usedIndex]);
-          }
-        }
+        this._updatePlatesFitnesses(usedIndexes, plates, bestPlateIndex);
       }
 
       daysCounter--;
@@ -87,6 +83,16 @@ class GreedyMenuSolver {
   
   _getPlateFitness(plate) {
     return plate.currentValue / plate.cost;
+  }
+  
+  _updatePlatesFitnesses(usedIndexes, plates, bestPlateIndex) {
+    for (var usedIndex of Object.keys(usedIndexes)) {
+      usedIndex = usedIndexes[usedIndex];
+      if (usedIndex !== bestPlateIndex) {
+        plates[usedIndex].currentValue = plates[usedIndex].value;
+        plates[usedIndex].fitness = this._getPlateFitness(plates[usedIndex]);
+      }
+    }
   }
 }
 
