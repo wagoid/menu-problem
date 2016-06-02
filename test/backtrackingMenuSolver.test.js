@@ -63,4 +63,35 @@ describe('backtrackingMenuSolver', function() {
     var solution = backtrackingMenuSolver.solve(problem);
     expect(solution).to.eql({platesSequence: '2 1 2 1 2 1', value: 33});
   });
+  
+  // it('Should get the best solution for a big problem', () => {
+  //   var problem = { days: 30, platesNumber: 22, budget: 120,
+  //     plates: [
+  //       { cost: 1, value: 2 }, { cost: 2, value: 3 },
+  //       { cost: 3, value: 4 }, { cost: 4, value: 5 },
+  //       { cost: 5, value: 6 }, { cost: 6, value: 7 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 9, value: 10 }, { cost: 10, value: 11 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //       { cost: 7, value: 8 }, { cost: 8, value: 9 },
+  //     ]
+  //   };
+    
+  //   expect(backtrackingMenuSolver.solve(problem)).to.eql({});
+  // });
 });
