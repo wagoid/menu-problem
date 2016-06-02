@@ -4,32 +4,29 @@ class DynamicMenuSolver {
   
 	solve(problem) {
 		var usedPlates;
-	    if (problem && problem.plates && problem.plates.length) {
-	      usedPlates = this._solve(problem);
-	    } else {
-	      usedPlates = [];
-	    }
-
-	    return usedPlates;
+		if (problem && problem.plates && problem.plates.length) {
+			usedPlates = this._solve(problem);
+		} else {
+			usedPlates = [];
+		}
+		return usedPlates;
 	}
 
-  	_solve({ days, platesNumber, budget, plates }) {
-
-  		var table = this._buildEmptyMatrix(plates.length, days);
-
-  		for (var j = 0; j < days; j++) {
-  			for (var i = 0; i < plates.length; i++) {
-  				if(j > 0) {
-  					table[i][j].plates = table[i][j - 1].plates;
-  					table[i][j].cost = table[i][j - 1].cost;
-  				}
-  				table[i][j].plates.push(this._findBesCost(plates, i, table[i][j].plates));
-  				table[i][j].cost += table[i][j].plates[table[i][j].plates.length - 1].cost;
-  			}
-  		}
-  		if(table[i-1][j-1].cost > budget)
-  			return [];
-  		return table[i-1][j-1].plates;
+	_solve({ days, platesNumber, budget, plates }) {
+		var table = this._buildEmptyMatrix(plates.length, days);
+		for (var j = 0; j < days; j++) {
+			for (var i = 0; i < plates.length; i++) {
+				if(j > 0) {
+					table[i][j].plates = table[i][j - 1].plates;
+					table[i][j].cost = table[i][j - 1].cost;
+				}
+				table[i][j].plates.push(this._findBesCost(plates, i, table[i][j].plates));
+				table[i][j].cost += table[i][j].plates[table[i][j].plates.length - 1].cost;
+			}
+		}
+		if(table[i-1][j-1].cost > budget)
+			return [];
+		return table[i-1][j-1].plates;
 	}
 
 	_findBesCost(plates, i, alreaadyFill){
@@ -43,7 +40,7 @@ class DynamicMenuSolver {
 				actualPlate.plateNumber = parseInt(i) + 1;
 			}
 		}
-		return actualPlate;
+		return {cost: actualPlate.cost, value: actualPlate.value, plateNumber: actualPlate.plateNumber};
 	}
 
 	_addFitnessAndCurrentValueToPlates(plates, alreaadyFill) {
@@ -67,11 +64,11 @@ class DynamicMenuSolver {
 		}
 	}
 
-  	_getPlateFitness(plate, value) {
-    	return plate.currentValue / plate.cost;
-  	}
+	_getPlateFitness(plate, value) {
+		return plate.currentValue / plate.cost;
+	}
 
-  	_buildEmptyMatrix(lines, columns) {
+	_buildEmptyMatrix(lines, columns) {
 		var matrix = [];
 		for (var line = 0; line < lines; line++) {
 			matrix[line] = [];

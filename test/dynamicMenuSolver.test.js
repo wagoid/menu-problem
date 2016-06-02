@@ -40,8 +40,8 @@ describe('dynamicMenuSolver', () => {
     
     expect(dynamicMenuSolver.solve(problem)).to.eql([{plateNumber: 1, cost: 3, value: 5}, {plateNumber: 1, cost: 3, value: 5}]);
     
-    problem = { days: 3, platesNumber: 5, budget: 20, 
-      plates: [ 
+    problem = { days: 3, platesNumber: 5, budget: 20,
+      plates: [
         { cost: 2, value: 5 }, { cost: 18, value: 6 },
         { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
       ]
@@ -51,8 +51,8 @@ describe('dynamicMenuSolver', () => {
   });
   
   it('Should preserve the plates used in the menu for different number of days', () => {
-    var problem = { days: 3, platesNumber: 5, budget: 20, 
-      plates: [ 
+    var problem = { days: 3, platesNumber: 5, budget: 20,
+      plates: [
         { cost: 2, value: 5 }, { cost: 18, value: 6 },
         { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
       ]
@@ -62,8 +62,8 @@ describe('dynamicMenuSolver', () => {
     var allCost2andValue3or5 = solution.every(plate => (plate.value === 5 || plate.value === 3) && plate.cost === 2);
     expect(allCost2andValue3or5).to.be.true;
     
-    problem = { days: 1000, platesNumber: 12, budget: 50000, 
-      plates: [ 
+    problem = { days: 1000, platesNumber: 12, budget: 50000,
+      plates: [
         { cost: 2, value: 5 }, { cost: 18, value: 6 },
         { cost: 1, value: 1 }, { cost: 3, value: 3 }, { cost: 2, value: 3  }
       ]
