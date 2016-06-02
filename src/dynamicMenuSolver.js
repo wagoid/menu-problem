@@ -55,10 +55,10 @@ class DynamicMenuSolver {
 						}
 					}
 				} else if(plates[i].value != plates[i].currentValue) {
-					plates[i].currentValue = plates[i].currentValue * 2;
+					plates[i].currentValue = plates[i].value;
 				}
 			} else if(plates[i].value != plates[i].currentValue) {
-				plates[i].currentValue = plates[i].currentValue * 2;
+				plates[i].currentValue = plates[i].value;
 			}
 			plates[i].fitness = this._getPlateFitness(plates[i]);
 		}
