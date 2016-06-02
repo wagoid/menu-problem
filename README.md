@@ -28,3 +28,21 @@ Como os pratos vão perdendo o valor com o uso, temos que sempre atualizar o fit
 O algoritmo guloso implementado não dá solução ótima. Como ele apenas analisa soluções ótimas locais para buscar a solução, não há garantia de que a solução ótima global será encontrada pelo algoritmo. Ele com certeza irá encontrar a solução que apresenta maior lucro, mas não necessariamente encontrará a solução com menor custo.
 
 3. Como esse problema pode ser modelado para o paradigma de Programação Dinâmica?
+
+Criando uma matriz de pratos por dias. Depois de criada, ela é preenchida utilizando funções de analisam o melhor custo/beneficio, atualizando os valores do prato para cada posição da matriz. 
+
+
+4. Discuta a sub-estrutura ótima e a sobreposição dos problemas.
+
+Através da verificação de da estrutura ja gerada, podemos verificar a sub-estrutura otima ja gerada e buscar uma solução melhor para o problema atraves da reverificação dos pratos para as novas condições da matriz.
+
+
+5. Se algum algoritmo clássico foi adaptado para resolver o problema, qual foi ele?
+
+Não foi adaptado nenhum algoritmo clássico.
+
+
+6. Como sua implementação se comporta em termos de tempo de execução e memória alocada? Apresente
+
+A leitura do  arquivo esta sendo realizada de maneira assincrona. Logo assim que um problema completo é lido sua execução é iniciada, não sobrecarregando a memoria do computador com os dados do arquivo que ainda serão executados.
+O tempo de execução mais rapido é através da solução gulosa, seguido pela dinamica e então o retroceso.   
