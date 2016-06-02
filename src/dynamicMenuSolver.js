@@ -47,10 +47,10 @@ class DynamicMenuSolver {
 		for (var i in plates) {
 			plates[i].currentValue = plates[i].value;      
 			if(alreaadyFill.length > 0) {
-				if(plates[i].value == alreaadyFill[alreaadyFill.length - 1].value && plates[i].cost == alreaadyFill[alreaadyFill.length - 1].cost) {
+				if(plates[i].plateNumber == alreaadyFill[alreaadyFill.length - 1].plateNumber) {
 					plates[i].currentValue = plates[i].currentValue / 2;
 					if(alreaadyFill.length > 1) {
-						if(plates[i].value == alreaadyFill[alreaadyFill.length - 2].value && plates[i].cost == alreaadyFill[alreaadyFill.length - 2].cost) {
+						if(plates[i].plateNumber == alreaadyFill[alreaadyFill.length - 2].plateNumber) {
 							plates[i].currentValue = 0;
 						}
 					}
