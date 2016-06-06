@@ -45,19 +45,18 @@ class DynamicMenuSolver {
 
 	_addFitnessAndCurrentValueToPlates(plates, alreaadyFill) {
 		for (var i in plates) {
-			plates[i].currentValue = plates[i].value;      
-			if(alreaadyFill.length > 0) {
-				if(plates[i].plateNumber == alreaadyFill[alreaadyFill.length - 1].plateNumber) {
-					plates[i].currentValue = plates[i].currentValue / 2;
-					if(alreaadyFill.length > 1) {
-						if(plates[i].plateNumber == alreaadyFill[alreaadyFill.length - 2].plateNumber) {
-							plates[i].currentValue = 0;
-						}
-					}
-				} else if(plates[i].value != plates[i].currentValue) {
-					plates[i].currentValue = plates[i].value;
-				}
-			} else if(plates[i].value != plates[i].currentValue) {
+			var twoDays;
+			var lastday;
+			plates[i].currentValue = plates[i].value;
+			if(alreaadyFill[alreaadyFill.length - 1])
+				lastday = alreaadyFill[alreaadyFill.length - 1].plateNumber == plates[i].plateNumber;
+			if(alreaadyFill[alreaadyFill.length - 2])
+				twoDays = alreaadyFill[alreaadyFill.length - 2].plateNumber && lastday
+			if(twoDays) {
+				plates[i].currentValue = 0;
+			} else if(lastday) {
+				plates[i].currentValue = plates[i].value / 2;
+			} else {
 				plates[i].currentValue = plates[i].value;
 			}
 			plates[i].fitness = this._getPlateFitness(plates[i]);

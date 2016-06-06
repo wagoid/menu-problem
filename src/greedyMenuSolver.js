@@ -50,6 +50,7 @@ class GreedyMenuSolver {
         }
       }
 
+      /* istanbul ignore else */
       if (bestPlateIndex !== null) {
         bestPlate.currentValue = bestPlate.currentValue == bestPlate.value? bestPlate.currentValue / 2 : 0;
         bestPlate.fitness = this._getPlateFitness(bestPlate);
